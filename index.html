@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#11110f">
+  <meta name="description" content="Give Meme SI words. The top three become one unfortunate meme.">
+  <title>MEME SI — The community meme machine</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'%3E%3Cpath fill='%2311110f' d='M0 0h32v32H0z'/%3E%3Cpath fill='%23b6ff4a' d='M5 4h22v19H5zM8 23h16v5H8z'/%3E%3Cpath fill='%2311110f' d='M9 9h5v5H9zm9 0h5v5h-5zM12 18h8v3h-8z'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="space" aria-hidden="true"></canvas>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#top" id="logo" aria-label="Meme SI home"><span>MEME</span><span>SI</span><i class="logo-eye">••</i></a>
+    <div class="system-stats" aria-label="Platform statistics">
+      <span><b id="stat-memes">30</b> MEMES</span><span><b id="stat-words">307</b> WORDS</span><span class="live"><b id="online-count">17</b> ONLINE</span>
+    </div>
+    <nav><a href="#round">PLAY</a><a href="#archive">ARCHIVE</a><a href="#highscore">HIGHSCORE</a><a class="twitter-nav" href="https://x.com" target="_blank" rel="noreferrer" aria-label="Open Meme SI on X / Twitter">X / TWITTER</a></nav>
+    <button class="tiny-btn" id="sound-toggle">SOUND: OFF</button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">COMMUNITY-OPERATED BAD IDEA // $MEMESI</p>
+        <h1>THE INTERNET<br>GIVES IT <em>WORDS.</em><br>IT MAKES THE MEME.</h1>
+        <p class="lede">Submit a word. Fight for the top 3.<br>Meme SI combines the winners into one meme.</p>
+        <div class="hero-actions"><a class="pixel-btn primary" href="#round">ENTER THE MACHINE</a><a class="pixel-btn" href="#archive">VIEW MEMES</a></div>
+        <div class="loop-strip"><span>SUBMIT</span><i>›</i><span>COMPETE</span><i>›</i><span>3 WINNERS</span><i>›</i><span>MEME</span></div>
+      </div>
+      <div class="hero-machine-wrap">
+        <div class="flying-word w1">PENGUIN</div><div class="flying-word w2">UNEMPLOYMENT</div><div class="flying-word w3">TRENCHES</div>
+        <div class="mascot large" data-memer tabindex="0" role="button" aria-label="MEMER-01, the meme machine">
+          <div class="antenna"><i></i></div><div class="ear left"></div><div class="ear right"></div>
+          <div class="screen"><div class="eyes"><i></i><i></i></div><div class="mouth"></div><div class="scan"></div></div>
+          <div class="body"><span>MEMER-01</span><div class="keys">▦ ▦ ▦</div></div><div class="arm a1"></div><div class="arm a2"></div><div class="leg l1"></div><div class="leg l2"></div>
+        </div>
+        <div class="output-card"><canvas width="128" height="96" data-scene="office"></canvas><b>MEME.EXE</b></div>
+        <div class="machine-label">INPUT STUPIDITY // OUTPUT DAMAGE</div>
+      </div>
+    </section>
+
+    <section class="game-shell" id="round">
+      <div class="round-head">
+        <div><span class="section-code">LIVE ROUND</span><h2>ROUND #<span id="round-num">042</span></h2></div>
+        <div class="countdown"><span>NEXT MEME IN</span><strong id="countdown">04:37</strong></div>
+        <div class="watching"><i></i><span id="watching-count">17</span> WATCHING</div>
+      </div>
+      <div class="submit-zone">
+        <label for="word-input">WHAT SHOULD MEME SI MEME?</label>
+        <form id="submit-form"><input id="word-input" maxlength="24" autocomplete="off" placeholder="type one word..." aria-describedby="submit-msg"><button class="pixel-btn primary" type="submit">SUBMIT</button></form>
+        <p id="submit-msg" aria-live="polite">ONE WORD. NO WISDOM REQUIRED.</p>
+      </div>
+      <div class="game-grid">
+        <section class="battle panel">
+          <div class="panel-title"><h3>WORD BATTLE</h3><span>THE TOP 3 SURVIVE</span></div>
+          <div class="meme-zone-label">★ THE MEME ZONE ★</div>
+          <ol id="leaderboard" class="leaderboard"></ol>
+        </section>
+        <section class="machine panel" id="machine-panel">
+          <div class="panel-title"><h3>THE MACHINE</h3><span>AI WAS A MISTAKE</span></div>
+          <div class="mini-memer mascot" data-memer tabindex="0" role="button" aria-label="MEMER-01">
+            <div class="antenna"><i></i></div><div class="screen"><div class="eyes"><i></i><i></i></div><div class="mouth"></div></div><div class="body"><span>01</span></div>
+          </div>
+          <div id="machine-inputs" class="machine-inputs"></div>
+          <button id="generate-btn" class="pixel-btn danger">GENERATE MEME</button>
+          <div id="process" class="process" aria-live="polite"><span>STATUS: QUESTIONABLE</span><div class="progress"><i></i></div></div>
+        </section>
+        <aside class="activity panel">
+          <div class="panel-title"><h3>LIVE ACTIVITY</h3><span class="blink">● RECEIVING</span></div>
+          <div id="activity-log" class="terminal" aria-live="polite"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="motd" id="meme-of-day">
+      <div class="section-heading"><span class="section-code">FILE OF THE DAY</span><h2>MEME OF THE DAY</h2></div>
+      <div class="motd-grid">
+        <div class="meme-frame big"><canvas width="320" height="230" data-scene="nightshop"></canvas><div class="caption">ONE MORE LAUNCH THEN SLEEP</div></div>
+        <div class="motd-copy"><p>ROUND #037</p><h3>FROG + NIGHTSHIFT + PUMP</h3><p>A tired frog works the convenience-store counter while a green candle does something medically inadvisable.</p><dl><div><dt>CREATED</dt><dd>14:32 UTC</dd></div><div><dt>INPUTS</dt><dd>3</dd></div><div><dt>BRAINCELLS LOST</dt><dd>8,291</dd></div><div><dt>INTERNET DAMAGE</dt><dd class="red">SEVERE</dd></div></dl></div>
+      </div>
+    </section>
+
+    <section class="archive-section" id="archive">
+      <div class="section-heading"><span class="section-code">20 FILES RECOVERED</span><h2>THE MEME ARCHIVES</h2><p>Everything the machine has created. Unfortunately.</p></div>
+      <div id="archive-grid" class="archive-grid"></div>
+    </section>
+
+    <section class="score-section" id="highscore">
+      <div class="section-heading"><span class="section-code">LOCAL LEGENDS</span><h2>HIGHSCORE</h2><p>click a name. inspect the damage.</p></div>
+      <div class="score-layout"><div class="scoreboard"><div class="score-head"><span>RANK / USER</span><span>WINS</span></div><ol id="highscores"></ol></div><div id="profile-card" class="profile-card"><span class="pixel-avatar">?</span><h3>SELECT A PLAYER</h3><p>THEIR TERRIBLE RECORD WILL APPEAR HERE.</p></div></div>
+    </section>
+
+    <section class="factory-section">
+      <div class="section-heading"><span class="section-code">FACTORY TOUR</span><h2>HOW IT WORKS</h2></div>
+      <div class="factory"><div><b>YOU</b><small>type something stupid</small></div><i>↓</i><div><b>WORD PIT</b><small>top 3 survive</small></div><i>↓</i><div class="factory-memer">▣<b>MEMER-01</b><small>AI suffers</small></div><i>↓</i><div><b>MEME</b><small>internet gets worse</small></div></div>
+    </section>
+
+    <section class="token-section">
+      <div><span class="section-code">THE FUEL FOR THE MACHINE</span><h2>$MEMESI</h2><p>The community decides what goes in.<br>The machine decides what comes out.</p></div>
+      <div class="ca-box"><span>CONTRACT ADDRESS</span><code id="contract">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</code><div><button id="copy-ca" class="pixel-btn primary">COPY CA</button><a class="pixel-btn" href="https://x.com" target="_blank" rel="noreferrer">X / TWITTER</a></div></div>
+    </section>
+  </main>
+
+  <footer><div class="footer-memer">[•_•]</div><p>MEME SI © 2026 // BUILT IN THE TRENCHES</p><button id="reset-demo" class="text-btn">RESET DEMO</button></footer>
+
+  <dialog id="meme-modal" class="pixel-modal"><button class="modal-close" aria-label="Close">×</button><div id="modal-content"></div></dialog>
+  <dialog id="reveal-modal" class="pixel-modal reveal"><button class="modal-close" aria-label="Close">×</button><div id="reveal-content"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="super-mode" aria-hidden="true">SUPER MEME MODE</div>
+
+  <script src="js/data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="js/three-scene.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
